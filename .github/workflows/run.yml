@@ -32,10 +32,13 @@ jobs:
           pip3 install requests pytz pycryptodome
           python3 main.py
 
-      - name: persist tokens
+      - name: Persist tokens
+        env:
+          PAT: ${{ secrets.PAT }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@users.noreply.github.com
+          git remote set-url origin https://x-access-token:${PAT}@github.com/GreyParrot05/mimotion11.git
           git add .
-          git commit -m "persist tokens trigger by ${{ github.event_name }}"
+          git commit -m "persist tokens trigger by ${{ github.event_name }}" || echo "No changes"
           git push origin master
