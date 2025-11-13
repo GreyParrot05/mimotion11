@@ -31,7 +31,14 @@ jobs:
         run: |
           pip3 install requests pytz pycryptodome
           python3 main.py
+          
+      - name: Debug PAT length
+        env:
+          PAT: ${{ secrets.PAT }}
+        run: echo "PAT length=${#PAT}"
 
+      - name: Show remote
+        run: git remote -v
       - name: Persist tokens
         env:
           PAT: ${{ secrets.PAT }}
